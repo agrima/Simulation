@@ -1,0 +1,61 @@
+            CSIM Simulation Report (Version 19.0 for SPARC Solaris)
+
+                                  M/M/1 Queue
+
+                           Wed Dec 10 19:08:36 2014
+
+
+                     Ending simulation time:    732247.849
+                     Elapsed simulation time:   732247.849
+                     CPU time used (seconds):        1.290
+
+
+FACILITY SUMMARY 
+
+facility     service    service          through-    queue     response   compl
+name           disc      time    util.     put       length      time     count
+--------------------------------------------------------------------------------
+facility     pre_res    5.00414  0.820    0.16388    4.98889   30.44253   120000
+   > class class 0      3.79497  0.494    0.13015    4.48488   34.45825    95305
+   > class class 1      4.99598  0.326    0.06528    0.50401    7.72059    47802
+
+
+PROCESS CLASS SUMMARY 
+
+ id  name            number     lifetime   hold count    hold time    wait time
+--------------------------------------------------------------------------------
+  0  default         120001      6.10201      0.99999      6.02023      0.08179 
+  1  class 0          72198     45.48663      1.00000      5.00955     40.47708 
+  2  class 1          47802      7.72059      1.00000      4.99598      2.72461 
+
+
+
+TABLE 1:  resp tms
+
+      minimum         0.000033          mean                   30.442526
+      maximum       512.819734          variance             2124.418746
+      range         512.819701          standard deviation     46.091417
+      observations      120000          coefficient of var      1.514047
+
+QTABLE 1:  num in sys
+
+      initial       0      minimum       0      mean                    4.988889
+      final         0      maximum      51      variance               34.125076
+      entries  120000      range        51      standard deviation      5.841667
+      exits    120000                           coeff of variation      1.170936
+
+                                             cumulative
+        number    total time    proportion   proportion
+
+             0   131750.68109     0.179926     0.179926   ********************
+             1   107374.92887     0.146637     0.326564   ****************    
+             2   87065.74556     0.118902     0.445466   *************       
+             3   70696.78526     0.096548     0.542013   ***********         
+             4   57813.64178     0.078954     0.620967   *********           
+             5   45996.13306     0.062815     0.683782   *******             
+             6   36718.99262     0.050146     0.733928   ******              
+             7   30117.38757     0.041130     0.775058   *****               
+             8   25157.77032     0.034357     0.809415   ****                
+             9   21060.74592     0.028762     0.838176   ***                 
+ >=         10   118495.03696     0.161824     1.000000   ******************  
+

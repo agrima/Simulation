@@ -1,0 +1,77 @@
+            CSIM Simulation Report (Version 19.0 for SPARC Solaris)
+
+                               Widget Production
+
+                           Wed Nov 19 19:45:01 2014
+
+
+                     Ending simulation time:     10906.381
+                     Elapsed simulation time:    10906.381
+                     CPU time used (seconds):        0.000
+
+
+FACILITY SUMMARY 
+
+facility     service    service          through-    queue     response   compl
+name           disc      time    util.     put       length      time     count
+--------------------------------------------------------------------------------
+pck          fcfs     368.26087  0.777    0.00211    0.79682  377.84667       23
+
+BUFFER SUMMARY
+
+buffer                 get      get      get   get   put      put      put   put 
+name            size   amt     qlen     resp count   amt     qlen     resp count
+--------------------------------------------------------------------------------
+prod               7   5.5  4.93558 2242.88772    24   1.0  0.00000  0.00000   135
+
+
+
+TABLE 1:  resp tms
+
+      minimum       435.088058          mean                 2040.321287
+      maximum      3487.433241          variance           810174.510029
+      range        3052.345183          standard deviation    900.096945
+      observations          23          coefficient of var      0.441155
+
+QTABLE 1:  num in sys
+
+      initial       0      minimum       0      mean                    5.805195
+      final        11      maximum      11      variance                7.632830
+      entries      34      range        11      standard deviation      2.762758
+      exits        23                           coeff of variation      0.475911
+
+                                             cumulative
+        number    total time    proportion   proportion
+
+             0     189.41639     0.017367     0.017367   **                  
+             1     998.96943     0.091595     0.108962   **********          
+             2     618.76505     0.056734     0.165697   ******              
+             3      63.93689     0.005862     0.171559   *                   
+             4    1395.80347     0.127980     0.299539   *************       
+             5    1909.50989     0.175082     0.474621   ******************  
+             6    1542.78407     0.141457     0.616078   ***************     
+             7     353.69970     0.032431     0.648509   ***                 
+             8    1138.57463     0.104395     0.752904   ***********         
+             9    2097.22113     0.192293     0.945197   ********************
+ >=         10     597.70062     0.054803     1.000000   ******              
+
+CSIM MODEL STATISTICS
+
+CPU time used (sec):         0.000 
+Events processed:              257 
+Memory allocated:            18240 bytes 
+Calls to malloc:                43 
+Processes 
+     Started:                   37 
+     Saved:                    159 
+     Terminated:                24 
+     High water mark:           14 
+Stacks 
+     Allocated:                 60 
+     High water mark:         2038 words 
+     Average:                  150 words 
+     Maximum:                  187 words 
+     Current:                 1917 words 
+
+total number of orders=91
+total number of orders lost=57

@@ -1,0 +1,51 @@
+#include "sim.h"
+
+#define	SVTM	3.0	/*mean of service time distribution */
+#define IATM	5.0	/*mean of inter-arrival time distribution */
+#define NARS 2
+
+asim *s;
+facility *f;
+simevent *done;
+double seed = 1234567;
+int cnt = NARS;
+
+double expon(double *, float);
+void *cust(void*);
+
+main()
+{
+	int i;
+	//cout << "enter the main function"<<endl;
+	s = new asim;
+	//cout << "finish new asim"<<endl;
+	f = new facility;
+	//cout << "finish new facility"<<endl;
+	done = new simevent;
+	//cout << "finish new simevent"<<endl;
+	
+	done->clear();
+	
+	for (i = 0; i < NARS; i++) {
+		s->create(cust);
+		//s->hold(expon(&seed, IATM));
+		s->hold(IATM);
+	}
+	done->wait();
+	f->report();
+	exit(0);
+}
+
+void *cust(void* v)
+{
+	f->notice_arrive();
+	f->reserve();
+	//s->hold(expon(&seed, SVTM));
+	s->hold(SVTM);
+	f->release();
+	cnt --;
+	if (cnt == 0) {
+		done->set();
+	}
+	f->notice_leave();
+}

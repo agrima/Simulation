@@ -1,0 +1,120 @@
+#include "sim.h"
+
+double simclock = 0;
+calendar calentry[THREAD_MAX];
+pthread_t ppid = -1;
+
+void* scheduler(void *v) {
+	cout<<"scheduler (thread #"<<pthread_self()<<") starts running"<<endl;
+	while(1) {
+		//select the thread with earliest time stamp to run
+		if( calentry[0].occtime != INF) {
+			//cout<<"future event set is not empty"<<endl;
+			if (ppid!= -1) {
+				pthread_setschedprio(ppid,MINPRIO);
+			}
+			simclock = calentry[0].occtime;
+			pthread_setschedprio(calentry[0].pid,MAXPRIO);
+			//remove the thread with earliest time stamp from the calendar
+			int i;
+			pthread_t tid;
+			for(i = 0; i < THREAD_MAX; i ++) {
+				if (calentry[i+1].occtime != INF) {
+					calentry[i].occtime = calentry[i+1].occtime;
+					calentry[i].pid = calentry[i+1].pid;
+					continue;
+				}
+				calentry[i].occtime = INF;
+				calentry[i].pid = -1;
+				break;
+			}
+			cout <<"scheduler resumed thread #"<<calentry[0].pid<<endl;
+		}
+		sched_yield();
+	}
+}
+
+asim::asim() {
+	int i;
+	pthread_t tid;
+	//cout<<"start to create thread scheduler"<<endl;
+	pthread_create(&tid, NULL, scheduler, NULL);
+	sched_tid = (int)tid;
+	//cout<<"created thread "<<sched_tid<<" to execute scheduler"<<endl;
+	pthread_setschedprio(tid, 2);
+	sched_yield();
+}
+
+void asim::create(void *funcname(void *v)) {
+	pthread_t thread;
+	int i, j;
+	pthread_create(&thread, NULL, funcname, NULL);
+	pthread_setschedprio(thread, 1);
+	//cout<<"Thread "<<pthread_self()<<" creat thread "<<thread<<" to excecute cust()at time "<<(int)simclock<<endl;
+	//insert the thread into calendar
+	for (i = 0; i < THREAD_MAX; i ++) {
+		if(simclock > calentry[i].occtime) {
+			continue;
+		}
+		else {
+			for (j = THREAD_MAX - 1; j > i; j --) {
+				calentry[j].occtime = calentry[j-1].occtime;
+				calentry[j].pid = calentry[j-1].pid;
+			}
+			calentry[i].occtime = simclock;
+			calentry[j].pid = thread;
+			break;
+		}
+	}
+	//yield to scheduler
+	ppid = pthread_self();
+	pthread_setschedprio(ppid,MINPRIO);
+	sched_yield();
+}
+
+void asim::yield(int thread) {
+	pthread_t tid = pthread_self();
+	pthread_setschedprio(tid,1);
+	pthread_setschedprio((pthread_t)thread,2);
+	//cout<<"Thread "<<pthread_self()<<" yield to thread "<<thread<<" at time "\
+	<<(int)simclock<<endl;
+	pthread_setschedprio(ppid,MINPRIO);
+	sched_yield();
+}
+
+void asim::setpri(int thread, int pri) {
+	pthread_t tid;
+	if(thread = SELF) {
+		tid = pthread_self();
+	}
+	else{
+		tid = (pthread_t)thread;
+	}
+	pthread_setschedprio(tid,pri);
+}
+
+void asim::hold(float time) {
+	float thread_time;
+	int i, j;
+	thread_time = simclock + time;
+	//insert the thread back into calendar
+	for (i = 0; i < THREAD_MAX; i ++) {
+		if(thread_time > calentry[i].occtime) {
+			continue;
+		}
+		else {
+			for (j = THREAD_MAX - 1; j > i; j --) {
+				calentry[j].occtime = calentry[j-1].occtime;
+				calentry[j].pid = calentry[j-1].pid;
+			}
+			calentry[i].occtime = thread_time;
+			calentry[i].pid = pthread_self();
+			break;
+		}
+	}
+	//yield to scheduler
+	ppid = pthread_self();
+	pthread_setschedprio(ppid,MINPRIO);
+	//cout<<"Thread "<<ppid<<" yield to scheduler at time "<<(int)simclock<<endl;
+	sched_yield();
+}

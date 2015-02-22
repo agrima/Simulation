@@ -1,0 +1,8 @@
+all: sim
+
+sim: sim.cpp
+	g++ sim.cpp uniform.c expon.c asim.cpp simevent.cpp facility.cpp \
+	calendar.cpp -o sim -l pthread -lrt
+	
+clean:
+	rm -f sim

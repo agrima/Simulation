@@ -1,0 +1,64 @@
+report is in hwreport.pdf
+
+[1] Problem 1
+
+All files are in the directory problem1. The main code is in the file prob1.c. Running
+
+$ make
+
+$ ./prob1
+
+This returns output of the form:
+
+<rho value>: <Waiting time from run 1> <Waiting time from run 2> ... <Waiting time from run 25>
+
+I ran this twice (to get a total of 50 values) and put them all into the file RunsOutput.txt.
+
+The file calc1.c collects all this data and outputs data that can be directly plotted. The plot data is in the file PlotData.txt. If you wish to run the script, please do
+
+gcc -lm calc1.c
+./a.out will give the output file.
+
+[2] Problem 2
+
+All files are in the directory problem2. The main code is in the file prob2.c. Running
+
+$ make
+
+$ ./prob2
+
+This returns output of the form:
+
+<rho value>: <Waiting time from run 1> <Waiting time from run 2> ... <Waiting time from run 25>
+
+I ran this twice (to get a total of 50 values) and put them all into the file RunsOutput.txt.
+
+The file calc1.c collects all this data and outputs data that can be directly plotted. The plot data is in the file PlotData.txt. If you wish to run the script, please do
+
+gcc -lm calc1.c
+./a.out will give the output file.
+
+
+
+[3] Problem 3
+
+All files are in the directory problem3. The main code is in the file prob3.c. Running
+
+$ make
+
+$ ./prob3
+
+This returns output of the form:
+
+<rho value>: <Waiting time from run 1> <Total service time over all queues from run 1>
+<rho value>: <Waiting time from run 2> <Total service time over all queues from run 2>
+...
+<rho value>: <Waiting time from run 25> <Total service time over all queues from run 25>
+
+The file calc1.c collects all this data and outputs data that can be directly plotted. The plot data is in the file PlotData.txt. If you wish to run the script, please do
+
+gcc -lm calc1.c
+./a.out will give the output file.
+
+
+
